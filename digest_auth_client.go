@@ -90,13 +90,13 @@ func (dt *DigestTransport) RoundTrip(req *http.Request) (resp *http.Response, er
 	if dt.HTTPClient != nil {
 		dr.HTTPClient = dt.HTTPClient
 	}
+	dr.Header.Set("User-Agent", req.Header.Get("User-Agent"))
 
 	return dr.Execute()
 }
 
 // Execute initialise the request and get a response
 func (dr *DigestRequest) Execute() (resp *http.Response, err error) {
-
 	if dr.Auth != nil {
 		return dr.executeExistingDigest()
 	}
